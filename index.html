@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Özel Bir Soru</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #fbcfe8 0%, #f43f5e 35%, #e11d48 70%, #9f1239 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .perched-bird {
+      position: absolute;
+      top: -55px;
+      right: 15px;
+      width: 75px;
+      height: auto;
+      z-index: 40;
+      transform-origin: bottom center;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+      animation: birdHover 3s ease-in-out infinite alternate;
+    }
+
+    .perched-ataturk {
+      position: absolute;
+      top: -55px;
+      left: 15px;
+      width: 65px;
+      height: auto;
+      z-index: 40;
+      transform-origin: bottom center;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+      animation: ataturkHover 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes birdHover {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-3px) rotate(-1deg); }
+      100% { transform: translateY(1px) rotate(1deg); }
+    }
+
+    @keyframes ataturkHover {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-3px) rotate(1deg); }
+      100% { transform: translateY(1px) rotate(-1deg); }
+    }
+
+    #btn-no {
+      transition: all 0.15s ease-out;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center p-4 min-h-screen">
+
+  <!-- ================= 1. EKRAN: GİRİŞ & SORU ================= -->
+  <div id="screen-intro" class="w-full max-w-sm bg-white/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/70 text-center transition-all">
+    
+    <div class="relative w-48 h-48 mx-auto mb-3 rounded-2xl overflow-hidden shadow-md border-2 border-white">
+      <img src="foto.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400';" class="w-full h-full object-cover" alt="Fotoğraf">
+    </div>
+
+    <p class="text-xs font-semibold text-rose-600 italic mb-4 tracking-wide">
+      "Cevap verirken Trabzonlu olduğumu unut"
+    </p>
+
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Tekrardan buluşalım mı?</h1>
+
+    <div class="relative flex justify-center items-center gap-4 h-16">
+      <button onclick="goToPlan()" class="px-7 py-3 bg-gray-900 hover:bg-black text-white font-semibold rounded-2xl shadow-lg transition-all active:scale-95">
+        Evet
+      </button>
+
+      <button id="btn-no" onmouseover="dodgeButton()" onclick="dodgeButton()" class="px-7 py-3 bg-gray-200 text-gray-700 font-semibold rounded-2xl shadow transition-all">
+        Hayır
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ================= 2. EKRAN: RANDEVU SEÇİMİ ================= -->
+  <div id="screen-plan" class="hidden relative w-full max-w-md bg-white/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-white/70 transition-all mt-10">
+    
+    <img src="ataturk.png" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Atat%C3%BCrk_1930s.jpg/400px-Atat%C3%BCrk_1930s.jpg';" class="perched-ataturk rounded-full object-cover border-2 border-white shadow-md" alt="Atatürk">
+    <img src="kus.png" onerror="this.onerror=null; this.src='kus.jpg';" class="perched-bird" alt="Muhabbet Kuşu">
+
+    <div id="plan-form">
+      <div class="text-center mb-6 pt-3">
+        <h2 class="text-xl font-bold text-gray-800 leading-snug">Evet diyeceğini biliyordum Merve Trabzonlulara karşı koymak zor</h2>
+        <p class="text-sm text-gray-500 mt-2">Ne Yapalım?</p>
+      </div>
+
+      <form id="appointment-form" onsubmit="submitPlan(event)" class="space-y-5">
+        
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wider">Aktivite</label>
+          <div class="grid grid-cols-3 gap-2">
+            
+            <label class="cursor-pointer">
+              <input type="radio" name="plan" value="Kahve & Sohbet" checked class="peer sr-only">
+              <div class="p-3 text-center border-2 border-gray-100 rounded-2xl peer-checked:border-rose-400 peer-checked:bg-rose-50/70 transition-all hover:bg-gray-50">
+                <div class="text-2xl">☕</div>
+                <div class="text-xs font-medium text-gray-700 mt-1">Kahve</div>
+              </div>
+            </label>
+
+            <label class="cursor-pointer">
+              <input type="radio" name="plan" value="Yemek & Tatlı" class="peer sr-only">
+              <div class="p-3 text-center border-2 border-gray-100 rounded-2xl peer-checked:border-rose-400 peer-checked:bg-rose-50/70 transition-all hover:bg-gray-50">
+                <div class="text-2xl">🍕</div>
+                <div class="text-xs font-medium text-gray-700 mt-1">Yemek</div>
+              </div>
+            </label>
+
+            <label class="cursor-pointer">
+              <input type="radio" name="plan" value="Buz Pateni" class="peer sr-only">
+              <div class="p-3 text-center border-2 border-gray-100 rounded-2xl peer-checked:border-rose-400 peer-checked:bg-rose-50/70 transition-all hover:bg-gray-50">
+                <div class="text-2xl">⛸️</div>
+                <div class="text-xs font-medium text-gray-700 mt-1">Buz Pateni</div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Tarih</label>
+            <input type="date" id="dateInput" required name="tarih" class="w-full bg-white/70 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-300">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1">Saat</label>
+            <input type="time" value="16:00" required name="saat" class="w-full bg-white/70 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-300">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1">Eklemek İstediğin Not (Opsiyonel)</label>
+          <textarea name="not" rows="2" placeholder="Örn: Patende düşersem gülmek yok..." class="w-full bg-white/70 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-rose-300 resize-none"></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="w-full bg-gray-900 hover:bg-black text-white font-semibold py-3.5 rounded-2xl shadow-lg transition-all active:scale-[0.98]">
+          Planı Gönder
+        </button>
+      </form>
+    </div>
+
+    <!-- ================= 3. EKRAN: ONAY EKRANI ================= -->
+    <div id="success-screen" class="hidden text-center py-6 pt-3">
+      <div class="text-5xl mb-3">💌</div>
+      <h3 class="text-2xl font-bold text-gray-800 mb-2">Yuppi</h3>
+      <p class="text-sm text-gray-600 mb-6">Tamamdırr Görüşürüz!</p>
+      <div id="summary-box" class="bg-rose-50/85 border border-rose-200 rounded-2xl p-4 text-left text-sm text-gray-700 space-y-1"></div>
+    </div>
+
+  </div>
+
+  <audio id="bg-music" src="toz-pembe.mp3" preload="auto"></audio>
+
+  <script>
+    function goToPlan() {
+      document.getElementById('screen-intro').classList.add('hidden');
+      document.getElementById('screen-plan').classList.remove('hidden');
+    }
+
+    function dodgeButton() {
+      const btn = document.getElementById('btn-no');
+      const randomX = Math.floor(Math.random() * 240) - 120;
+      const randomY = Math.floor(Math.random() * 200) - 100;
+      btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    const dateInput = document.getElementById('dateInput');
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    dateInput.min = today.toISOString().split('T')[0];
+    dateInput.value = tomorrow.toISOString().split('T')[0];
+
+    async function submitPlan(e) {
+      e.preventDefault();
+      
+      const form = document.getElementById('appointment-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const formData = new FormData(form);
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Gönderiliyor...";
+
+      const formspreeID = "xqpezwna"; 
+
+      try {
+        if (formspreeID !== "SENIN_FORMSPREE_KODUN") {
+          await fetch(`https://formspree.io/f/${formspreeID}`, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+        }
+
+        const plan = formData.get('plan');
+        const tarih = formData.get('tarih');
+        const saat = formData.get('saat');
+        const not = formData.get('not');
+
+        document.getElementById('summary-box').innerHTML = `
+          <p><strong>Aktivite:</strong> ${plan}</p>
+          <p><strong>Zaman:</strong> ${tarih} - ${saat}</p>
+          ${not ? `<p><strong>Not:</strong> "${not}"</p>` : ''}
+        `;
+
+        document.getElementById('plan-form').classList.add('hidden');
+        document.getElementById('success-screen').classList.remove('hidden');
+
+        // Şarkıyı 47. saniyeden başlatma ve 77. saniyede durdurma ayarı
+        const music = document.getElementById('bg-music');
+        const startTime = 47; // 47. saniyeden başlar
+        const endTime = 77;   // Nakarat bitişi (istersen süreyi bu sayıdan uzatıp kısaltabilirsin)
+
+        music.currentTime = startTime;
+        music.play().catch(err => console.log("Otomatik oynatma engellendi:", err));
+
+        music.addEventListener('timeupdate', function() {
+          if (music.currentTime >= endTime) {
+            music.pause();
+          }
+        });
+
+      } catch (err) {
+        alert("Bir hata oluştu, lütfen tekrar dene.");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Planı Gönder";
+      }
+    }
+  </script>
+</body>
+</html>
